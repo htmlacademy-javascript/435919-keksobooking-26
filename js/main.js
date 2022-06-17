@@ -1,4 +1,4 @@
-сonst getRandomInt = (min, max) => {
+const getRandomInt = (min, max) => {
     if (min < 0 || max < 0)
     return -1;
 }
@@ -11,7 +11,7 @@ if (min > max) {
 
 getRandomInt (1, 555)
 
-сonst getRandomFloat = (min, max, digit = 5) => {
+const getRandomFloat = (min, max, digit = 5) => {
     if (min < 0 || max < 0)
     return -1;
 }
