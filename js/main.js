@@ -16,7 +16,7 @@ const MAX_ROOMS = 15;
 const MIN_GUESTS = 1;
 const MAX_GUESTS = 6;
 
-const  offerTitle = 'Заголовок';
+const offerTitle = 'Заголовок';
 const offerDescription = 'Здесь могла быть Ваша реклама';
 
 const RENTAL_AD_COUNT = 10;
