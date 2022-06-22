@@ -49,6 +49,7 @@ const generateCoordinate = (min, max, digit = 5) => {
     if (min < 0 || max < 0){
         return -1;
     }
+    
     if (min > max) {
         [min, max] = [max, min];
     }
@@ -102,3 +103,4 @@ for(let i = 0; i < COUNT; i++){
  
 addOffers();
 export {arrayOffers}
+
