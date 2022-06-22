@@ -21,7 +21,7 @@ const offerDescription = 'Здесь могла быть Ваша реклама
 
 const RENTAL_AD_COUNT = 10;
 
-const DIGIT = 5;
+const DIGIT = 5; // изменение
 
 const Lat = {
     MIN: 35.65000,
