@@ -1,1 +1,2 @@
-import {arrayOffers} from './arrayOffers.js'
+import { addOffers } from './arrayOffers.js';
+addOffers();

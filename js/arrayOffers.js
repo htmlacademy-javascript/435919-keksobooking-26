@@ -35,6 +35,4 @@ const addOffers = () => {
   }
 };
 
-addOffers();
-
 export { addOffers };
