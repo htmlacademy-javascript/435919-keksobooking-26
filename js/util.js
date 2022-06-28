@@ -10,7 +10,6 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export { getRandomNumber };
 
 const generateCoordinate = (min, max, digit = 5) => {
   if (min < 0 || max < 0) {
@@ -24,8 +23,6 @@ const generateCoordinate = (min, max, digit = 5) => {
   return (Math.random() * ((max - min) + min)).toFixed(digit);
 };
 
-export { generateCoordinate };
-
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -34,4 +31,6 @@ const shuffleArray = (array) => {
   return array;
 };
 
+export { generateCoordinate };
+export { getRandomNumber };
 export { shuffleArray };

@@ -1,2 +1,2 @@
-import { addOffers } from './arrayOffers.js';
-addOffers();
+import { renderCard } from './data-generation.js';
+renderCard();
