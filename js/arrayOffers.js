@@ -1,7 +1,7 @@
 import { getRandomNumber } from './util.js';
 import { generateCoordinate } from './util.js';
 import { shuffleArray } from './util.js';
-import { TYPES_APARTMENT, TIMES, FEATURES_APARTMENT, PHOTOS_APARTMENT, MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_GUESTS, MAX_GUESTS, offerTitle, offerDescription, Lat, Lng, COUNT } from './data.js';
+import { TYPES_APARTMENT, TIMES, FEATURES_APARTMENT, PHOTOS_APARTMENT, MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_GUESTS, MAX_GUESTS, offerTitle, offerDescription, Lat, Lng, COUNT } from './util.js';
 
 const offers = [];
 const addOffer = (index) => ({
