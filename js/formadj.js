@@ -1,18 +1,17 @@
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
-const formElements = document.querySelectorAll('#housing-type, #housing-price, #housing-rooms, #housing-guests, .ad-form-header, .ad-form__element, .ad-form__slider');
+const disabledFields = document.querySelectorAll('fieldset, select.map__filter');
 
-const disableForm = () => {
-  adForm.classList.add('ad-form--disabled');
-  mapFilters.classList.add('mapfilters--disabled');
-  formElements.forEach((element) => {element.disabled = true;});
+const setDisabledState = () => {
+  disabledFields.forEach((item) => {
+    item.disabled = !item.disabled;
+  });
 };
 
-const enableForm = () => {
-  adForm.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  formElements.forEach((element) => {element.disabled = false;});
+const toggleInteractive = () => {
+  adForm.classList.toggle('ad-form--disabled');
+  mapFilters.classList.toggle('map__filters--disabled');
 };
 
-export{disableForm};
-export{enableForm};
+export{setDisabledState};
+export{toggleInteractive};
