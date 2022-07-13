@@ -1,5 +1,3 @@
-import { offers } from './arrayOffers.js';
-
 const types = {
   flat: {
     ru: 'Квартира'
@@ -54,7 +52,11 @@ const renderCard = (data) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
 
   const offerTitle = offerElement.querySelector('.popup__title');
-  if (data.offer.title) { offerTitle.textContent = data.offer.title; } else { offerTitle.remove(); }
+  if (data.offer.title) {
+    offerTitle.textContent = data.offer.title;
+  } else {
+    offerTitle.remove();
+  }
 
   const offerTextAdress = offerElement.querySelector('.popup__text--address');
   if (data.offer.address) { offerTextAdress.textContent = data.offer.address; } else { offerTextAdress.remove(); }
@@ -81,12 +83,13 @@ const renderCard = (data) => {
     renderPhotos(offerElement.querySelector('.popup__photos'), data.offer.photos);}
 
   const offerAvatar = offerElement.querySelector('.popup__avatar');
-  if (data.author.avatar) { offerAvatar.textContent.src = data.author.avatar; } else { offerTitle.remove(); }
+  if (data.author.avatar) {
+    offerAvatar.src = data.author.avatar;
+  } else {
+    offerTitle.remove();
+  }
 
   offerCardElement.appendChild(offerElement);
-
 };
-
-renderCard(offers[0]);
 
 export { renderCard };

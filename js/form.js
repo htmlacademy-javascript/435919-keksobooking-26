@@ -1,4 +1,4 @@
-const PRICE_MAX = 100;
+const PRICE_MAX = 100000;
 
 const TITLE_LENGTH = {
   min: 30,
@@ -6,10 +6,10 @@ const TITLE_LENGTH = {
 };
 
 const TYPE_OF_HOUSE = {
-  bungalow: '0',
-  flat: '1000',
-  house: '5000',
-  palace: '10000',
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
 };
 
 const adForm = document.querySelector('.ad-form');
@@ -18,7 +18,9 @@ const title = adForm.querySelector('#title');
 const price = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
-const guestNumber = capacity.querySelector('option');
+const guestNumber = capacity.querySelectorAll('option');
+const timeIn = capacity.querySelectorAll('#timein');
+const timeOut = capacity.querySelectorAll('#timeout');
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -26,10 +28,9 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'ad-form__element--error',
 });
 
-
 const validateTitle = (value) => value.length <= TITLE_LENGTH.max && value.length >= TITLE_LENGTH.min;
-const validatePrice = (value) => value <= PRICE_MAX && value >= TYPE_OF_HOUSE[type.value];
-const getErrorTextPrice = () => Number[price.value] < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}`: `Максимальная цена ${PRICE_MAX}`;
+const validatePrice = (value) => value <= PRICE_MAX && parseInt(value, 10) >= TYPE_OF_HOUSE[type.value];
+const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}`: `Максимальная цена ${PRICE_MAX}`;
 
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
@@ -40,6 +41,8 @@ const onTypeOfHouseChange = () => {
   price.placeholder = minPrice;
   price.min = minPrice;
 };
+
+type.addEventListener('change', onTypeOfHouseChange);
 
 type.addEventListener('change', onTypeOfHouseChange);
 
@@ -74,6 +77,9 @@ const onRoomNumberChange = () => {
 
 roomNumber.addEventListener('change', onRoomNumberChange);
 
+
+timeIn.addEventListener('change', timeIn.value= timeOut.value);
+timeOut.addEventListener('change', timeOut.value= timeIn.value);
 
 adForm.addEventListener('submit', (evt) => {
 
