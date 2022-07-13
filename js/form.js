@@ -19,8 +19,8 @@ const price = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const guestNumber = capacity.querySelectorAll('option');
-const timeIn = capacity.querySelectorAll('#timein');
-const timeOut = capacity.querySelectorAll('#timeout');
+const timeIn = capacity.querySelector('#timein');
+const timeOut = capacity.querySelector('#timeout');
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
