@@ -19,8 +19,8 @@ const price = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const guestNumber = capacity.querySelectorAll('option');
-const timeIn = capacity.querySelector('#timein');
-const timeOut = capacity.querySelector('#timeout');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -78,8 +78,8 @@ const onRoomNumberChange = () => {
 roomNumber.addEventListener('change', onRoomNumberChange);
 
 
-timeIn.addEventListener('change', timeIn.value= timeOut.value);
-timeOut.addEventListener('change', timeOut.value= timeIn.value);
+timeIn.addEventListener('change', timeIn.value = timeOut.value);
+timeOut.addEventListener('change', timeOut.value = timeIn.value);
 
 adForm.addEventListener('submit', (evt) => {
 
