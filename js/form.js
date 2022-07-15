@@ -55,8 +55,8 @@ sliderElement.noUiSlider.on('update', () => {
 
 });
 
-price.addEventListener('change',() => {
-  sliderElement.noUiSlider.set(price.value);
+price.addEventListener('change',(evt) => {
+  sliderElement.noUiSlider.set(evt.target.value);
 });
 
 const onTypeOfHouseChange = () => {
