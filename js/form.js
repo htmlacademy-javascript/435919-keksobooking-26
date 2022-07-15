@@ -17,6 +17,7 @@ const adForm = document.querySelector('.ad-form');
 const type = adForm.querySelector('#type');
 const title = adForm.querySelector('#title');
 const price = adForm.querySelector('#price');
+const sliderElement = document.querySelector('#slider');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const guestNumber = capacity.querySelectorAll('option');
@@ -37,6 +38,26 @@ const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.v
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
 
+price.value = 1000;
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: 100,
+  step: 100,
+  connect: 'lower',
+});
+
+sliderElement.noUiSlider.on('update', () => {
+  price.value = sliderElement.noUiSlider.get();
+
+});
+
+price.addEventListener('change',() => {
+  sliderElement.noUiSlider.set(price.value);
+});
 
 const onTypeOfHouseChange = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
