@@ -33,7 +33,6 @@ const addOffers = () => {
   for (let i = 0; i < COUNT; i++) {
     offers.push(addOffer(i));
   }
-  return offers;
 };
 
 addOffers();

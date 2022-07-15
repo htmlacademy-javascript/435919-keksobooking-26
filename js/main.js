@@ -8,3 +8,5 @@ import { toggleInteractive } from './formadj.js';
 setDisabledState();
 toggleInteractive();
 renderCard(offers[0]);
+setDisabledState();
+toggleInteractive();
