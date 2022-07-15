@@ -9,7 +9,7 @@ const TYPE_OF_HOUSE = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
-  hotel: 4000,
+  hotel: 3000,
   palace: 10000,
 };
 
