@@ -10,23 +10,6 @@ const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
 const resetButton = adForm.querySelector('.ad-form__reset'); */
 
-/*const TOKIO_COORDINATES = {
-  lat: 35.681729,
-  lng: 139.753927,
-};
-const ZOOM_LEVEL = 10;
-
-const map = L.map('#map-canvas')
-  .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map); */
-
-
 const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
@@ -44,20 +27,10 @@ L.tileLayer(
 ).addTo(map);
 
 
-/*
 //3. Напишите код, который будет добавлять на карту специальную, «главную», метку. Иконка для метки есть в обновлении, файл main-pin.svg.
-const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
 
 const mainPinMarker = L.marker(
-  {TOKIO_COORDINATES},
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
+  TOKIO_COORDINATES,
 );
 
 mainPinMarker.addTo(map);
@@ -65,6 +38,11 @@ mainPinMarker.addTo(map);
 /* 4. Реализуйте с помощью API карт выбор адреса путём перемещения главной метки.
 Ручное редактирование поля запрещено, однако поле должно быть доступно, чтобы значение отправлялось на сервер с формой.
 
+const mainPinIcon = L.icon({
+  iconUrl: './img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
 mainPinMarker.on('moveend', (evt) => {
   addressField.value = evt.target.getLatLng();
