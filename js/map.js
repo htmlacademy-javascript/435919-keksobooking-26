@@ -5,10 +5,11 @@
 import { offers } from './arrayOffers.js';
 import { renderCard } from './data-generation.js';
 import { setDisabledState } from './formadj.js';
-import { toggleInteractive } from './formadj.js';
+import { toggleInteractive } from './formadj.js';*/
+
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
-const resetButton = adForm.querySelector('.ad-form__reset'); */
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const TOKIO_COORDINATES = {
   lat: 35.681729,
@@ -28,26 +29,29 @@ L.tileLayer(
 
 
 //3. Напишите код, который будет добавлять на карту специальную, «главную», метку. Иконка для метки есть в обновлении, файл main-pin.svg.
-
-const mainPinMarker = L.marker(
-  TOKIO_COORDINATES,
-);
-
-mainPinMarker.addTo(map);
-
-/* 4. Реализуйте с помощью API карт выбор адреса путём перемещения главной метки.
-Ручное редактирование поля запрещено, однако поле должно быть доступно, чтобы значение отправлялось на сервер с формой.
-
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
+
+const mainPinMarker = L.marker(
+  TOKIO_COORDINATES,
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  });
+
+mainPinMarker.addTo(map);
+
 mainPinMarker.on('moveend', (evt) => {
   addressField.value = evt.target.getLatLng();
 });
 
+
+/* 4. Реализуйте с помощью API карт выбор адреса путём перемещения главной метки.
+Ручное редактирование поля запрещено, однако поле должно быть доступно, чтобы значение отправлялось на сервер с формой.
 
 /* 5. Напишите код, который добавит на карту метки объявлений, «обычные». Иконка для меток есть в обновлении, файл pin.svg.
 Для отображения используйте данные для разработки, которые мы генерировали несколько заданий назад.
@@ -74,10 +78,10 @@ offers.forEach(({ lat, lng }) => {
     .bindPopup(renderCard(offers));
 });
 
-// ТЗ 2.5.
+// ТЗ 2.5.*/
 
 resetButton.addEventListener('click', () => {
   mainPinMarker.setLatLng(TOKIO_COORDINATES);
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 });
-*/
+
