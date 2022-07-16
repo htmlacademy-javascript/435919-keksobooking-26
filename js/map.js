@@ -26,11 +26,15 @@ L.tileLayer(
   },
 ).addTo(map); */
 
+
+const TOKIO_COORDINATES = {
+  lat: 35.681729,
+  lng: 139.753927,
+};
+const ZOOM_LEVEL = 10;
+
 const map = L.map('map-canvas')
-  .setView({
-    lat: 59.92749,
-    lng: 30.31127,
-  }, 10);
+  .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
