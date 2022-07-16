@@ -3,10 +3,10 @@
 Координаты центра Токио найдите самостоятельно
 
 import { renderCard } from './data-generation.js';
+import { renderCard } from './data-generation.js';
 import { setDisabledState } from './formadj.js';
 import { toggleInteractive } from './formadj.js';*/
 import { offers } from './arrayOffers.js';
-import { renderCard } from './data-generation.js';
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
 const resetButton = adForm.querySelector('.ad-form__reset');
