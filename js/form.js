@@ -48,43 +48,35 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-const onTypeOfHouseChange = () => {
+// при изменении типа жилья меняется плейсхолдер цены
+const onTypeOfHouseChangePlaceHolder = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
+type.addEventListener('change', onTypeOfHouseChangePlaceHolder);
+
+// при изменении типа жилья меняются настройки слайдера
+
+const onTypeOfHouseChangeSlider = () => {
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: TYPE_OF_HOUSE[type.value],
+      max: 100000,
+    },
+    start: TYPE_OF_HOUSE[type.value],
+    step: 100,
+    connect: 'lower',
+  });
+};
+
+type.addEventListener('change', onTypeOfHouseChangeSlider);
+
+// меняю слайдер - меняется значение цены
 sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
 });
-
-price.addEventListener('change', () => { // поменять тип события?
-  if (TYPE_OF_HOUSE[type.value] === 5000) {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 5000,
-        max: 100000,
-      },
-      start: 5000,
-      step: 100,
-      connect: 'lower',
-    });
-  } else {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100000,
-      },
-      start: 1000,
-      step: 100,
-      connect: 'lower',
-    });
-  }
-});
-
-type.addEventListener('change', onTypeOfHouseChange);
-
-type.addEventListener('change', onTypeOfHouseChange);
 
 // количество комнат и количество мест
 const NumberOfGuests = {
