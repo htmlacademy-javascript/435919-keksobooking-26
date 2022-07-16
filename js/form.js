@@ -8,8 +8,8 @@ const TITLE_LENGTH = {
 const TYPE_OF_HOUSE = {
   bungalow: 0,
   flat: 1000,
-  house: 5000,
   hotel: 3000,
+  house: 5000,
   palace: 10000,
 };
 
@@ -22,7 +22,7 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const guestNumber = capacity.querySelectorAll('option');
 const formTime = adForm.querySelector('.ad-form__element--time');
-const timeIn= adForm.querySelector('#timein');
+const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
 
 const pristine = new Pristine(adForm, {
@@ -33,7 +33,7 @@ const pristine = new Pristine(adForm, {
 
 const validateTitle = (value) => value.length <= TITLE_LENGTH.max && value.length >= TITLE_LENGTH.min;
 const validatePrice = (value) => value <= PRICE_MAX && parseInt(value, 10) >= TYPE_OF_HOUSE[type.value];
-const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}`: `Максимальная цена ${PRICE_MAX}`;
+const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}` : `Максимальная цена ${PRICE_MAX}`;
 
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
@@ -43,7 +43,7 @@ noUiSlider.create(sliderElement, {
     min: 0,
     max: 100000,
   },
-  start: 100,
+  start: 1000,
   step: 100,
   connect: 'lower',
 });
@@ -56,12 +56,30 @@ const onTypeOfHouseChange = () => {
 
 sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
-  onTypeOfHouseChange();
-
 });
 
-price.addEventListener('change',(evt) => { // поменять тип события?
-  sliderElement.noUiSlider.set(evt.target.value);
+price.addEventListener('change', () => { // поменять тип события?
+  if (TYPE_OF_HOUSE[type.value] === 5000) {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 5000,
+        max: 100000,
+      },
+      start: 5000,
+      step: 100,
+      connect: 'lower',
+    });
+  } else {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 100000,
+      },
+      start: 1000,
+      step: 100,
+      connect: 'lower',
+    });
+  }
 });
 
 type.addEventListener('change', onTypeOfHouseChange);
