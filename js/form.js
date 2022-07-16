@@ -38,6 +38,7 @@ const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.v
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
 
+// настройки слайдера
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -48,7 +49,7 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
   format: {
     to: function (value) {
-      return value;
+      return value.toFixed(0);
     },
     from: function (value) {
       return parseFloat(value);
@@ -86,10 +87,11 @@ sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
 });
 
-// меняю значение цены - меняется слайдер, нужно ли менять событи?
+// меняю значение цены - меняется слайдер, нужно ли менять событие?
 price.addEventListener('change', (evt) => {
   sliderElement.noUiSlider.set(evt.target.value);
 });
+
 // количество комнат и количество мест
 const NumberOfGuests = {
   1: ['1'],

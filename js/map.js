@@ -8,7 +8,7 @@ import { setDisabledState } from './formadj.js';
 import { toggleInteractive } from './formadj.js';
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
-const resetButton = adForm.querySelector('.ad-form__reset');
+const resetButton = adForm.querySelector('.ad-form__reset'); */
 
 const TOKIO_COORDINATES = {
   lat: 35.681729,
@@ -16,12 +16,8 @@ const TOKIO_COORDINATES = {
 };
 const ZOOM_LEVEL = 10;
 
-
 const map = L.map('#map-canvas')
-  .on('load', () => {
-    setDisabledState(); toggleInteractive();
-  })
-  .setView({ TOKIO_COORDINATES }, { ZOOM_LEVEL });
+  .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
