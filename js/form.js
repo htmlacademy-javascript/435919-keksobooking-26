@@ -78,6 +78,10 @@ sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
 });
 
+// меняю значение цены - меняется слайдер
+price.addEventListener('change', (evt) => {
+  sliderElement.noUiSlider.set(evt.target.value);
+});
 // количество комнат и количество мест
 const NumberOfGuests = {
   1: ['1'],
