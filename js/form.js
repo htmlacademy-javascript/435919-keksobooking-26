@@ -46,6 +46,14 @@ noUiSlider.create(sliderElement, {
   start: 1000,
   step: 100,
   connect: 'lower',
+  format: {
+    to: function (value) {
+      return value;
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
 });
 
 // при изменении типа жилья меняется плейсхолдер цены
@@ -78,7 +86,7 @@ sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
 });
 
-// меняю значение цены - меняется слайдер
+// меняю значение цены - меняется слайдер, нужно ли менять событи?
 price.addEventListener('change', (evt) => {
   sliderElement.noUiSlider.set(evt.target.value);
 });
