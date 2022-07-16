@@ -6,6 +6,7 @@ import { renderCard } from './data-generation.js';
 import { renderCard } from './data-generation.js';
 import { setDisabledState } from './formadj.js';
 import { toggleInteractive } from './formadj.js';*/
+
 import { offers } from './arrayOffers.js';
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
