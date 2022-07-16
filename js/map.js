@@ -10,7 +10,7 @@ const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
 const resetButton = adForm.querySelector('.ad-form__reset'); */
 
-const TOKIO_COORDINATES = {
+/*const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
 };
@@ -24,9 +24,23 @@ L.tileLayer(
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
+).addTo(map); */
+
+const map = L.map('map-canvas')
+  .setView({
+    lat: 59.92749,
+    lng: 30.31127,
+  }, 10);
+
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
 ).addTo(map);
 
 
+/*
 //3. Напишите код, который будет добавлять на карту специальную, «главную», метку. Иконка для метки есть в обновлении, файл main-pin.svg.
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
