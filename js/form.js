@@ -38,8 +38,6 @@ const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.v
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
 
-price.value = 1000;
-
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -50,20 +48,21 @@ noUiSlider.create(sliderElement, {
   connect: 'lower',
 });
 
-sliderElement.noUiSlider.on('update', () => {
-  price.value = sliderElement.noUiSlider.get();
-
-});
-
-price.addEventListener('change',(evt) => {
-  sliderElement.noUiSlider.set(evt.target.value);
-});
-
 const onTypeOfHouseChange = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
+
+sliderElement.noUiSlider.on('update', () => {
+  price.value = sliderElement.noUiSlider.get();
+  onTypeOfHouseChange();
+
+});
+
+price.addEventListener('change',(evt) => { // поменять тип события?
+  sliderElement.noUiSlider.set(evt.target.value);
+});
 
 type.addEventListener('change', onTypeOfHouseChange);
 
