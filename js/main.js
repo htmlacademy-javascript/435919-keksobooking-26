@@ -10,4 +10,3 @@ toggleInteractive();
 renderCard(offers[0]);
 setDisabledState();
 toggleInteractive();
-
