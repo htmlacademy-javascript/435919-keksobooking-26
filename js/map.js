@@ -2,11 +2,11 @@
 от Кексобота реализуйте отображение карты и дальнейший переход страницы в активное состояние после инициализации карты.
 Координаты центра Токио найдите самостоятельно
 
-import { offers } from './arrayOffers.js';
 import { renderCard } from './data-generation.js';
 import { setDisabledState } from './formadj.js';
 import { toggleInteractive } from './formadj.js';*/
-
+import { offers } from './arrayOffers.js';
+import { renderCard } from './data-generation.js';
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
 const resetButton = adForm.querySelector('.ad-form__reset');
@@ -50,6 +50,28 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 
+const icon = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+offers.forEach(({ lat, lng }) => {
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker
+    .addTo(map);
+});
+
+
 /* 4. Реализуйте с помощью API карт выбор адреса путём перемещения главной метки.
 Ручное редактирование поля запрещено, однако поле должно быть доступно, чтобы значение отправлялось на сервер с формой.
 
@@ -77,8 +99,8 @@ offers.forEach(({ lat, lng }) => {
     .addTo(map)
     .bindPopup(renderCard(offers));
 });
-
-// ТЗ 2.5.*/
+*/
+// ТЗ 2.5.
 
 resetButton.addEventListener('click', () => {
   mainPinMarker.setLatLng(TOKIO_COORDINATES);
