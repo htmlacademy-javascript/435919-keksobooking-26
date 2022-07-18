@@ -50,7 +50,7 @@ const renderCard = (data) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
 
   const offerTitle = offerElement.querySelector('.popup__title');
-  if (data.offer.title) {
+  if (data.offer.title){
     offerTitle.textContent = data.offer.title;
   } else {
     offerTitle.remove();

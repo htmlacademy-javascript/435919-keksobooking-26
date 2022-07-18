@@ -131,14 +131,38 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-adForm.addEventListener('submit', (evt) => {
-
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
-
 
 resetButton.addEventListener('click', () => {
   setDefaultState();
 });
+
+
+// отправка формы на сервер
+const setFormSubmit = (onSuccess, onFail) => {
+  adForm.addEventListener('submit', (evt) => {
+
+    if (!pristine.validate()) {
+      evt.preventDefault();
+    }
+    const formData = new FormData(evt.target);
+
+    fetch(
+      'https://26.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFail();
+      }
+    })
+      .catch(() => {
+        onFail();
+      });
+  });
+};
+
+export { setFormSubmit };

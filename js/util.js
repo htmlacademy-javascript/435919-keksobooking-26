@@ -1,4 +1,4 @@
-/*const TYPES_APARTMENT = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TYPES_APARTMENT = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TIMES = ['12:00', '13:00', '14:00'];
 const FEATURES_APARTMENT = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const PHOTOS_APARTMENT = [
@@ -71,4 +71,4 @@ const shuffleArray = (array) => {
 export { TYPES_APARTMENT, TIMES, FEATURES_APARTMENT, PHOTOS_APARTMENT, MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_GUESTS, MAX_GUESTS, offerTitle, offerDescription, RENTAL_AD_COUNT, DIGIT, Lat, Lng, COUNT };
 export { generateCoordinate };
 export { getRandomNumber };
-export { shuffleArray }; */
+export { shuffleArray };
