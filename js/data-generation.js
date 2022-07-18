@@ -112,7 +112,7 @@ const renderCard = (data) => {
     offerTitle.remove();
   }
 
-  offerCardElement.appendChild(offerElement);
+  return offerElement;
 };
 
 export { renderCard };
