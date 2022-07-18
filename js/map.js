@@ -49,7 +49,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createMarker = ((offer) => {
+const createMarker = (offer) => {
   const marker = L.marker(
     offer.address,
     {
@@ -59,8 +59,7 @@ const createMarker = ((offer) => {
   marker
     .addTo(map)
     .bindPopup(renderCard(offer));
-  return marker;
-});
+};
 
 offers.forEach(createMarker);
 
