@@ -72,3 +72,4 @@ export { TYPES_APARTMENT, TIMES, FEATURES_APARTMENT, PHOTOS_APARTMENT, MIN_PRICE
 export { generateCoordinate };
 export { getRandomNumber };
 export { shuffleArray };
+

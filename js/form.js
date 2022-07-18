@@ -132,13 +132,31 @@ formTime.addEventListener('change', (evt) => {
 });
 
 
+//cообщение об успехе
+const onSuccess  = () => {
+  const body = document.querySelector('body');
+  const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
+  const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
+  body.appendChild(successElement); // вставляем элемент
+  successElement.addEventListener('click', () => {successElement.remove();
+  });
+};
+
+// cообщение об ошибке
+const onFail = () => {
+  const main = document.querySelector('main');
+  const errorTemlate = document.querySelector('#error').content.querySelector('.error');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
+  const errorElement = errorTemlate.cloneNode(true); // клонируем этот элемент
+  main.appendChild(errorElement);
+};
+
 resetButton.addEventListener('click', () => {
   setDefaultState();
 });
 
 
 // отправка формы на сервер
-const setFormSubmit = (onSuccess, onFail) => {
+const setFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
 
     if (!pristine.validate()) {
