@@ -46,8 +46,6 @@ const renderPhotos = (container, photos) => {
 
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const offerCardElement = document.querySelector('#map-canvas');
-
 const renderCard = (data) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
 
