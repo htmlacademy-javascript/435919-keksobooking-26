@@ -1,26 +1,29 @@
-// import { setDisabledState } from './formadj.js'; Эту функцию тоже нужно запускать?
-import { toggleInteractive } from './formadj.js';
+import { toggleInteractive, setDisabledState } from './formadj.js';
 import { offers } from './arrayOffers.js';
 import { renderCard } from './data-generation.js';
+
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
-const resetButton = adForm.querySelector('.ad-form__reset');
 
 const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
 };
 const ZOOM_LEVEL = 10;
+const FIXED_NUMBER = 5;
 
 const map = L.map('map-canvas')
-  .on('load', toggleInteractive)
+  .on('load', () => {
+    toggleInteractive();
+    setDisabledState();
+  })
   .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
+  }
 ).addTo(map);
 
 
@@ -40,7 +43,8 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  addressField.value = evt.target.getLatLng();
+  const { lat, lng } = evt.target.getLatLng();
+  addressField.value = `${lat.toFixed(FIXED_NUMBER)}, ${lng.toFixed(FIXED_NUMBER)}`;
 });
 
 const icon = L.icon({
@@ -49,23 +53,35 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createMarker = ((offer) => {
+const createMarker = (offer) => {
   const marker = L.marker(
-    offer.address,
+    {
+      lat: offer.location.lat,
+      lng: offer.location.lng,
+    },
     {
       icon: icon,
+      keepInView: true,
     },
   );
   marker
     .addTo(map)
     .bindPopup(renderCard(offer));
-  return marker;
-});
+};
 
 offers.forEach(createMarker);
 
+const setDefaultState = () => {
+  mainPinMarker.setLatLng(TOKIO_COORDINATES);
+  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+  map.closePopup();
+};
+
+export {setDefaultState};
+
+/*
 resetButton.addEventListener('click', () => {
   mainPinMarker.setLatLng(TOKIO_COORDINATES);
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
   map.closePopup();
-});
+});*/

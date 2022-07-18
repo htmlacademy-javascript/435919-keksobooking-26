@@ -1,3 +1,5 @@
+import {setDefaultState} from './map.js';
+
 const PRICE_MAX = 100000;
 
 const TITLE_LENGTH = {
@@ -24,6 +26,7 @@ const guestNumber = capacity.querySelectorAll('option');
 const formTime = adForm.querySelector('.ad-form__element--time');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -133,4 +136,9 @@ adForm.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
     evt.preventDefault();
   }
+});
+
+
+resetButton.addEventListener('click', () => {
+  setDefaultState();
 });
