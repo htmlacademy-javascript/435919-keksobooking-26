@@ -1,3 +1,5 @@
+import {setDefaultState} from './map.js';
+
 const PRICE_MAX = 100000;
 
 const TITLE_LENGTH = {
@@ -8,8 +10,8 @@ const TITLE_LENGTH = {
 const TYPE_OF_HOUSE = {
   bungalow: 0,
   flat: 1000,
-  house: 5000,
   hotel: 3000,
+  house: 5000,
   palace: 10000,
 };
 
@@ -17,12 +19,14 @@ const adForm = document.querySelector('.ad-form');
 const type = adForm.querySelector('#type');
 const title = adForm.querySelector('#title');
 const price = adForm.querySelector('#price');
+const sliderElement = document.querySelector('#slider');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const guestNumber = capacity.querySelectorAll('option');
 const formTime = adForm.querySelector('.ad-form__element--time');
-const timeIn= adForm.querySelector('#timein');
+const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -32,21 +36,64 @@ const pristine = new Pristine(adForm, {
 
 const validateTitle = (value) => value.length <= TITLE_LENGTH.max && value.length >= TITLE_LENGTH.min;
 const validatePrice = (value) => value <= PRICE_MAX && parseInt(value, 10) >= TYPE_OF_HOUSE[type.value];
-const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}`: `Максимальная цена ${PRICE_MAX}`;
+const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.value] ? `Минимальная цена ${TYPE_OF_HOUSE[type.value]}` : `Максимальная цена ${PRICE_MAX}`;
 
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
 
+// настройки слайдера
+noUiSlider.create(sliderElement, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: 1000,
+  step: 100,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value.toFixed(0);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
 
-const onTypeOfHouseChange = () => {
+// при изменении типа жилья меняется плейсхолдер цены
+const onTypeOfHouseChangePlaceHolder = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
-type.addEventListener('change', onTypeOfHouseChange);
+type.addEventListener('change', onTypeOfHouseChangePlaceHolder);
 
-type.addEventListener('change', onTypeOfHouseChange);
+// при изменении типа жилья меняются настройки слайдера
+
+const onTypeOfHouseChangeSlider = () => {
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: TYPE_OF_HOUSE[type.value],
+      max: 100000,
+    },
+    start: TYPE_OF_HOUSE[type.value],
+    step: 100,
+    connect: 'lower',
+  });
+};
+
+type.addEventListener('change', onTypeOfHouseChangeSlider);
+
+// меняю слайдер - меняется значение цены
+sliderElement.noUiSlider.on('update', () => {
+  price.value = sliderElement.noUiSlider.get();
+});
+
+// меняю значение цены - меняется слайдер, нужно ли менять событие?
+price.addEventListener('change', (evt) => {
+  sliderElement.noUiSlider.set(evt.target.value);
+});
 
 // количество комнат и количество мест
 const NumberOfGuests = {
@@ -89,4 +136,9 @@ adForm.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
     evt.preventDefault();
   }
+});
+
+
+resetButton.addEventListener('click', () => {
+  setDefaultState();
 });
