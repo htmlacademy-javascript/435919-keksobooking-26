@@ -203,4 +203,3 @@ adForm.addEventListener('submit', (evt) => {
     }
   }
 });
-

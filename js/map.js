@@ -101,6 +101,12 @@ const onError = () => {
   document.body.append(alertContainer);
 };
 
+offer.addEventListener('keydown', (evt) => {// удаляем сообщение по Esc
+  if (evt.key === 'Escape') {
+    offer.remove();
+  }
+});
+
 map.on('load', () => {
   toggleInteractive();
   setDisabledState();
