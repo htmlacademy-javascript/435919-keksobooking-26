@@ -132,13 +132,11 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-
 //появление cообщения об успехе, закрытие сообщения
 const onSuccess = () => {
-  const body = document.querySelector('body');
   const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
   const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
-  body.appendChild(successElement);
+  document.body.append(successElement);
 
   successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
     successElement.remove();
@@ -157,7 +155,7 @@ const errorButton = document.querySelector('.error__button');
 
 // cообщение об ошибке
 const onError = () => {
-  body.appendChild(errorElement);
+  document.body.append(errorElement);
 
   document.addEventListener('click', () => { // удаляем по клику на произвольную область экрана
     errorElement.remove();
