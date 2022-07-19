@@ -1,4 +1,5 @@
 import { setDefaultState } from './map.js';
+import { makeRequest } from './api.js';
 
 const PRICE_MAX = 100000;
 
@@ -44,7 +45,7 @@ pristine.addValidator(price, validatePrice, getErrorTextPrice);
 // настройки слайдера
 noUiSlider.create(sliderElement, {
   range: {
-    min: 0,
+    min: 1000,
     max: 100000,
   },
   start: 1000,
@@ -150,12 +151,13 @@ const onSuccess = () => {
   });
 };
 
+
 const errorTemlate = document.querySelector('#error').content.querySelector('.error');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
 const errorElement = errorTemlate.cloneNode(true); // клонируем этот элемент
 const errorButton = document.querySelector('.error__button');
 
 // cообщение об ошибке
-const onFail = () => {
+const onError = () => {
   body.appendChild(errorElement);
 
   document.addEventListener('click', () => { // удаляем по клику на произвольную область экрана
@@ -194,33 +196,15 @@ resetButton.addEventListener('click', () => {
   });
 });
 
-
-// отправка формы на сервер
-const setFormSubmit = () => {
+const setFormSumit = () => {
   adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-    if (!pristine.validate()) {
-      evt.preventDefault();
+    if (pristine.validate()) {
+      makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
     }
-    const formData = new FormData(evt.target);
-
-    fetch(
-      'https://26.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-      .catch(() => {
-        onFail();
-      });
   });
 };
 
-export { setFormSubmit };
+export {setFormSumit};
+

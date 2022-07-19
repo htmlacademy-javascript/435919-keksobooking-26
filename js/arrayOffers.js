@@ -38,5 +38,3 @@ const addOffers = () => {
 addOffers();
 
 export { offers };
-
-
