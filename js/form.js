@@ -132,13 +132,13 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-const body = document.querySelector('body');
-const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
-const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
 
 //появление cообщения об успехе, закрытие сообщения
 const onSuccess = () => {
-  body.appendChild(successElement); // вставляем элемент
+  const body = document.querySelector('body');
+  const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
+  const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
+  body.appendChild(successElement);
 
   successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
     successElement.remove();
@@ -195,13 +195,15 @@ resetButton.addEventListener('click', () => {
   });
 });
 
-const setFormSumit = () => {
-  adForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+adForm.addEventListener('submit', (evt) => {
 
-    if (pristine.validate()) {
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+  else {
+    {
       makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
     }
-  });
-};
-export {setFormSumit };
+  }
+});
+
