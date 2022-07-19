@@ -137,14 +137,17 @@ const onSuccess = () => {
   const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
   const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
   document.body.append(successElement);
+  setDefaultState();
 
   successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
     successElement.remove();
+    setDefaultState();
   });
 
   document.addEventListener('keydown', (evt) => {// удаляем сообщение по Esc
     if (evt.key === 'Escape') {
       successElement.remove();
+      setDefaultState();
     }
   });
 };
@@ -161,13 +164,13 @@ const onError = () => {
     errorElement.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {// удаляем по Esc
+  document.addEventListener('keydown', (evt) => {// удаляем cообщение по Esc
     if (evt.key === 'Escape') {
       errorElement.remove();
     }
   });
 
-  errorButton.addEventListener('click', () => { // удаляем по нажатию на кнопку
+  errorButton.addEventListener('click', () => { // удаляем сообщение по клику
     errorElement.remove();
   });
 };
@@ -193,13 +196,12 @@ resetButton.addEventListener('click', () => {
   });
 });
 
+
 adForm.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-  else {
-    {
-      makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
-    }
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
   }
 });
+
