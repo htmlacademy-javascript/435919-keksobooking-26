@@ -78,10 +78,3 @@ const setDefaultState = () => {
 };
 
 export {setDefaultState};
-
-/*
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng(TOKIO_COORDINATES);
-  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
-  map.closePopup();
-});*/
