@@ -101,10 +101,18 @@ const onError = () => {
   document.body.append(alertContainer);
 };
 
+
 map.on('load', () => {
-  toggleInteractive();
   setDisabledState();
+  toggleInteractive();
   makeRequest(onSuccess, onError, 'GET');
 }).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+
+toggleInteractive();
+
+/*
+offers.on('load', () => {
+  toggleInteractive();
+});*/
 
 export {setDefaultState};
