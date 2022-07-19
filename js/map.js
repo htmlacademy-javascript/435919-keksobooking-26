@@ -104,15 +104,12 @@ const onError = () => {
 
 map.on('load', () => {
   setDisabledState();
-  toggleInteractive();
   makeRequest(onSuccess, onError, 'GET');
 }).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
-toggleInteractive();
 
-/*
 offers.on('load', () => {
   toggleInteractive();
-});*/
+});
 
 export {setDefaultState};
