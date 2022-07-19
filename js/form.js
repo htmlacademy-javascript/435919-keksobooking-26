@@ -137,17 +137,18 @@ const onSuccess = () => {
   const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
   const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
   document.body.append(successElement);
+  adForm.reset();
   setDefaultState();
+  sliderElement.noUiSlider.reset();
 
   successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
     successElement.remove();
-    setDefaultState();
   });
 
   document.addEventListener('keydown', (evt) => {// удаляем сообщение по Esc
     if (evt.key === 'Escape') {
       successElement.remove();
-      setDefaultState();
+
     }
   });
 };
@@ -177,23 +178,7 @@ const onError = () => {
 
 resetButton.addEventListener('click', () => {
   setDefaultState();
-  sliderElement.noUiSlider.updateOptions({// не получается через end, переустановила
-    range: {
-      min: 0,
-      max: 100000,
-    },
-    start: 1000,
-    step: 100,
-    connect: 'lower',
-    format: {
-      to: function (value) {
-        return value.toFixed(0);
-      },
-      from: function (value) {
-        return parseFloat(value);
-      },
-    },
-  });
+  sliderElement.noUiSlider.reset();
 });
 
 
