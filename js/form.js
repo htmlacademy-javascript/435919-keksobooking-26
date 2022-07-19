@@ -205,6 +205,4 @@ const setFormSumit = () => {
     }
   });
 };
-
-export {setFormSumit};
-
+export {setFormSumit };

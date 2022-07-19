@@ -1,4 +1,4 @@
-const Urls = {
+/*const Urls = {
   GET: 'https://26.javascript.pages.academy/keksobooking/data',
   POST: 'https://26.javascript.pages.academy/keksobooking',
 };
@@ -19,4 +19,5 @@ const makeRequest = (onSuccess, onError, method, data) => {
     });
 };
 
-export { makeRequest };
+export { makeRequest }; */
+

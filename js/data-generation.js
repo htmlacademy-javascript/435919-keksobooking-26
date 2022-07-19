@@ -34,7 +34,8 @@ const renderPhotos = (container, photos) => {
   const offerPhoto = photoElement.cloneNode(true);
 
   container.innerHTML = '';
-  if (photos.length > 0) {
+
+  if (photos) {
     photos.forEach((photo) => {
       offerPhoto.src = photo;
       container.appendChild(offerPhoto);
@@ -49,7 +50,7 @@ const renderCard = (data) => {
   const offerElement = similarOfferTemplate.cloneNode(true);
 
   const offerTitle = offerElement.querySelector('.popup__title');
-  if (data.offer.title){
+  if (data.offer.title) {
     offerTitle.textContent = data.offer.title;
   } else {
     offerTitle.remove();
@@ -88,7 +89,7 @@ const renderCard = (data) => {
     offerTextTime.remove();
   }
 
-  if (data.offer.features && data.offer.features.length > 0) {
+  if (data.offer.features > 0) {
     renderFeatures(offerElement.querySelector('.popup__features'), data.offer.features);
   }
 
@@ -98,7 +99,7 @@ const renderCard = (data) => {
     offerDescription.remove();
   }
 
-  if (data.offer.photos && data.offer.photos.length > 0) {
+  if (data.offer.photos > 0) {
     renderPhotos(offerElement.querySelector('.popup__photos'), data.offer.photos);
   }
 
