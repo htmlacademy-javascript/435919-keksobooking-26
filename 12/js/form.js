@@ -1,4 +1,5 @@
 import { setDefaultState } from './map.js';
+import { makeRequest } from './api.js';
 
 const PRICE_MAX = 100000;
 
@@ -44,7 +45,7 @@ pristine.addValidator(price, validatePrice, getErrorTextPrice);
 // настройки слайдера
 noUiSlider.create(sliderElement, {
   range: {
-    min: 0,
+    min: 1000,
     max: 100000,
   },
   start: 1000,
@@ -131,13 +132,11 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-const body = document.querySelector('body');
-const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
-const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
-
 //появление cообщения об успехе, закрытие сообщения
 const onSuccess = () => {
-  body.appendChild(successElement); // вставляем элемент
+  const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
+  const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
+  document.body.append(successElement);
 
   successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
     successElement.remove();
@@ -155,8 +154,8 @@ const errorElement = errorTemlate.cloneNode(true); // клонируем это�
 const errorButton = document.querySelector('.error__button');
 
 // cообщение об ошибке
-const onFail = () => {
-  body.appendChild(errorElement);
+const onError = () => {
+  document.body.append(errorElement);
 
   document.addEventListener('click', () => { // удаляем по клику на произвольную область экрана
     errorElement.remove();
@@ -194,33 +193,14 @@ resetButton.addEventListener('click', () => {
   });
 });
 
-
-// отправка формы на сервер
-const setFormSubmit = () => {
-  adForm.addEventListener('submit', (evt) => {
-
-    if (!pristine.validate()) {
-      evt.preventDefault();
+adForm.addEventListener('submit', (evt) => {
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+  else {
+    {
+      makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
     }
-    const formData = new FormData(evt.target);
+  }
+});
 
-    fetch(
-      'https://26.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    ).then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-      .catch(() => {
-        onFail();
-      });
-  });
-};
-
-export { setFormSubmit };
