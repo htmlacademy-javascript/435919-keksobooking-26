@@ -1,5 +1,5 @@
+import { makeRequest } from './api.js';
 import { toggleInteractive, setDisabledState } from './formadj.js';
-import { offers } from './arrayOffers.js';
 import { renderCard } from './data-generation.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -9,15 +9,13 @@ const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
 };
+const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    toggleInteractive();
-    setDisabledState();
-  })
-  .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+let offers = [];
+
+const map = L.map('map-canvas');
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -53,23 +51,25 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createMarker = (offer) => {
-  const marker = L.marker(
-    {
-      lat: offer.location.lat,
-      lng: offer.location.lng,
-    },
-    {
-      icon: icon,
-      keepInView: true,
-    },
-  );
-  marker
-    .addTo(map)
-    .bindPopup(renderCard(offer));
-};
+const renderMarkers = (data) => {
+  const createMarker = (offer) => {
+    const marker = L.marker(
+      {
+        lat: offer.location.lat,
+        lng: offer.location.lng,
+      },
+      {
+        icon: icon,
+        keepInView: true,
+      },
+    );
+    marker
+      .addTo(map)
+      .bindPopup(renderCard(offer));
+  };
 
-offers.forEach(createMarker);
+  data.forEach(createMarker);
+};
 
 const setDefaultState = () => {
   mainPinMarker.setLatLng(TOKIO_COORDINATES);
@@ -77,11 +77,40 @@ const setDefaultState = () => {
   map.closePopup();
 };
 
-export {setDefaultState};
+const onSuccess = (data) => {
+  offers = data.slice();
+
+  renderMarkers(offers.slice(0, MAX_OFFERS));
+};
+
+const onError = () => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.color = 'red';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'white';
+
+  alertContainer.textContent = 'Не удалось загрузить объявления';
+
+  document.body.append(alertContainer);
+};
+
+
+map.on('load', () => {
+  setDisabledState();
+  toggleInteractive();
+  makeRequest(onSuccess, onError, 'GET');
+}).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
 /*
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng(TOKIO_COORDINATES);
-  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
-  map.closePopup();
+offers.on('load', () => {
+  toggleInteractive();
 });*/
+
+export {setDefaultState};
