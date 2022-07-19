@@ -194,7 +194,7 @@ resetButton.addEventListener('click', () => {
 });
 
 adForm.addEventListener('submit', (evt) => {
-
+  evt.preventDefault();
   if (!pristine.validate()) {
     evt.preventDefault();
   }
