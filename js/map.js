@@ -1,11 +1,11 @@
 import { makeRequest } from './api.js';
 import { toggleInteractive, setDisabledState } from './formadj.js';
 import { renderCard } from './data-generation.js';
-//import {filterData} from './filter.js';
+import { filterData } from './filter.js';
 
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
-//const mapFilters = document.querySelector('.map__filters');
+const mapFilters = document.querySelector('.map__filters');
 
 const TOKIO_COORDINATES = {
   lat: 35.681729,
@@ -15,7 +15,7 @@ const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 
-//let offers = []; // нужно?
+let offers = [];
 
 const map = L.map('map-canvas');
 
@@ -53,6 +53,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
+
 const createMarker = (offer) => {
   const marker = L.marker(
     {
@@ -64,13 +65,11 @@ const createMarker = (offer) => {
       keepInView: true,
     },
   );
-  marker
-    .addTo(map)
-    .bindPopup(renderCard(offer));
+
+  marker.addTo(map).bindPopup(renderCard(offer));
 };
 
 const renderMarkers = (data) => {
-  createMarker(data);
   data.forEach(createMarker);
 };
 
@@ -80,19 +79,21 @@ const setDefaultState = () => {
   map.closePopup();
 };
 
-// let offers = []; нужно?
+const removeMarker = () => {
 
-/*const onMapFiltersChange = () => {
-  map.closePopup();
+};
+
+const onMapFiltersChange = () => {
+  removeMarker();
   createMarker(filterData(offers));
-};*/
+};
 
-const onSuccess = (offers) => {
-  offers = offers.slice();
+
+const onSuccess = (data) => {
+  offers = data.slice();
 
   renderMarkers(offers.slice(0, MAX_OFFERS));
-
-//mapFilters.addEventListener('change', onMapFiltersChange);
+  mapFilters.addEventListener('change', onMapFiltersChange);
 };
 
 const onError = () => {

@@ -1,4 +1,4 @@
-/*const MAX_OFFERS = 10;
+const MAX_OFFERS = 10;
 const DEFAULT_VALUE = 'any';
 
 const priceMap = {
@@ -19,14 +19,14 @@ const priceMap = {
 const filters = Array.from(document.querySelectorAll('.map_filters'));
 
 const filterRules = {
-  'housing-type': (data, filter) => filter.value === data.offer.type
-  ,
-  'housing-price': (data, filter) => data.offer.price >= priceMap(filter.value).start && data.offer.price < priceMap(filter.value).end
-  ,
-  'housing-rooms': (data, filter) => filter.value === data.offer.rooms.toString()
-  ,
-  'housing-guests': (data, filter) => filter.value === data.offer.guests.toString()
-  ,
+  'housing-type': (data, filter) => filter.value === data.offer.type,
+
+  'housing-price': (data, filter) => data.offer.price >= priceMap(filter.value).start && data.offer.price < priceMap(filter.value).end,
+
+  'housing-rooms': (data, filter) => filter.value === data.offer.rooms.toString(),
+
+  'housing-guests': (data, filter) => filter.value === data.offer.guests.toString(),
+
   'housing-features': (data, filter) => {
     const checkListElements = Array.from(filter.querySelectorAll('input[type="checkbox"]:checked'));
     return data.offer.features ? checkListElements.every((checkbox) => data.offer.features.includes(checkbox.value)) : !(checkListElements.length > 0);
@@ -51,4 +51,5 @@ const filterData = (data) => {
   }
 };
 
-export { filterData }; */
+export { filterData };
+
