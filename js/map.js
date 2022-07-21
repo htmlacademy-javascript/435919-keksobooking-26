@@ -80,12 +80,8 @@ const setDefaultState = () => {
   map.closePopup();
 };
 
-const removeMarker = () => {
-
-};
-
 const onMapFiltersChange = () => {
-  removeMarker();
+  //markerGroup.remove();
   createMarker(filterData(offers));
 };
 
