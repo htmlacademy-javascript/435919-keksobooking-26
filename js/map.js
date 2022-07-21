@@ -81,8 +81,8 @@ const setDefaultState = () => {
 };
 
 // let offers = []; нужно?
-/*
-const onMapFiltersChange = () => {
+
+/*const onMapFiltersChange = () => {
   map.closePopup();
   createMarker(filterData(offers));
 };*/
@@ -91,8 +91,8 @@ const onSuccess = (offers) => {
   offers = offers.slice();
 
   renderMarkers(offers.slice(0, MAX_OFFERS));
-  /*
-  mapFilters.addEventListener('change', onMapFiltersChange);*/
+
+//mapFilters.addEventListener('change', onMapFiltersChange);
 };
 
 const onError = () => {
