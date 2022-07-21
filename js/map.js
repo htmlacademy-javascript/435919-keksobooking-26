@@ -14,6 +14,15 @@ const TOKIO_COORDINATES = {
 const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
+const ALERT_SHOW_TIME = 5000;
+
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
 
 let offers = [];
 
@@ -74,16 +83,11 @@ const renderMarkers = (data) => {
   data.forEach(createMarker);
 };
 
-const setDefaultState = () => {
-  mainPinMarker.setLatLng(TOKIO_COORDINATES);
-  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
-  map.closePopup();
-};
 
-const onMapFiltersChange = () => {
-  //markerGroup.remove();
+const onMapFiltersChange = debounce(() => {
+  markerGroup.clearLayers();
   createMarker(filterData(offers));
-};
+}, ALERT_SHOW_TIME);
 
 
 const onSuccess = (data) => {
@@ -111,16 +115,17 @@ const onError = () => {
   document.body.append(alertContainer);
 };
 
+const setDefaultState = () => {
+  mainPinMarker.setLatLng(TOKIO_COORDINATES);
+  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+  map.closePopup();
+  mapFilters.reset();
+};
 
 map.on('load', () => {
   setDisabledState();
   toggleInteractive();
   makeRequest(onSuccess, onError, 'GET');
 }).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
-
-/*
-offers.on('load', () => {
-  toggleInteractive();
-});*/
 
 export {setDefaultState};

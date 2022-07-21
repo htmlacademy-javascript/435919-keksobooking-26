@@ -39,7 +39,7 @@ const filterData = (data) => {
   let result;
 
   while (i < data.length && filteredOffers.length < MAX_OFFERS) {
-    result = filters.every((filter) => (filter.value === DEFAULT_VALUE) ? true : filterRules[filter.id](data[i]), filters);//или filter?
+    result = filters.every((filter) => (filter.value === DEFAULT_VALUE) ? true : filterRules[filter.id](data[i], filter));
 
     if (result) {
       filteredOffers.push(data[i]);
@@ -53,4 +53,3 @@ const filterData = (data) => {
 };
 
 export { filterData };
-
