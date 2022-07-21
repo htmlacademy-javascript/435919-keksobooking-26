@@ -53,6 +53,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (offer) => {
   const marker = L.marker(
@@ -66,7 +67,7 @@ const createMarker = (offer) => {
     },
   );
 
-  marker.addTo(map).bindPopup(renderCard(offer));
+  marker.addTo(markerGroup).bindPopup(renderCard(offer));
 };
 
 const renderMarkers = (data) => {
