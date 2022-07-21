@@ -15,7 +15,7 @@ const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 
-let offers = []; // нужно?
+//let offers = []; // нужно?
 
 const map = L.map('map-canvas');
 
@@ -87,8 +87,8 @@ const onMapFiltersChange = () => {
   createMarker(filterData(offers));
 };*/
 
-const onSuccess = (data) => {
-  offers = data.slice();
+const onSuccess = (offers) => {
+  offers = offers.slice();
 
   renderMarkers(offers.slice(0, MAX_OFFERS));
   /*
