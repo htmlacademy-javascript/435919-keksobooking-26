@@ -120,6 +120,7 @@ const setDefaultState = () => {
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
   map.closePopup();
   mapFilters.reset();
+  renderMarkers(offers.slice(0, MAX_OFFERS)); // почему выдает 11, а не 10?
 };
 
 map.on('load', () => {
