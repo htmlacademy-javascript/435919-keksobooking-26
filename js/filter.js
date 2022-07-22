@@ -21,7 +21,7 @@ const filters = Array.from(document.querySelector('.map__filters').children);
 const filterRules = {
   'housing-type': (data, filter) => filter.value === data.offer.type,
 
-  'housing-price': (data, filter) => data.offer.price >= priceMap(filter.value).start && data.offer.price < priceMap(filter.value).end,
+  'housing-price': (data, filter) => data.offer.price >= priceMap[filter.value].start && data.offer.price < priceMap[filter.value].end,
 
   'housing-rooms': (data, filter) => filter.value === data.offer.rooms.toString(),
 
