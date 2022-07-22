@@ -14,7 +14,7 @@ const TOKIO_COORDINATES = {
 const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 500;
 
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
@@ -86,7 +86,7 @@ const renderMarkers = (data) => {
 
 const onMapFiltersChange = debounce(() => {
   markerGroup.clearLayers();
-  createMarker(filterData(offers));
+  renderMarkers(filterData(offers));
 }, ALERT_SHOW_TIME);
 
 

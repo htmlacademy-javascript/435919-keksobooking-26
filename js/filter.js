@@ -16,7 +16,7 @@ const priceMap = {
   }
 };
 
-const filters = Array.from(document.querySelectorAll('.map_filters'));
+const filters = Array.from(document.querySelector('.map__filters').children);
 
 const filterRules = {
   'housing-type': (data, filter) => filter.value === data.offer.type,
