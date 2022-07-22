@@ -33,4 +33,3 @@ livingPhoto.addEventListener('change', () => {
     previewLivingPhoto.src = URL.createObjectURL(file);
   }
 });
-

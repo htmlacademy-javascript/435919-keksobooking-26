@@ -83,7 +83,6 @@ const renderMarkers = (data) => {
   data.forEach(createMarker);
 };
 
-
 const onMapFiltersChange = debounce(() => {
   markerGroup.clearLayers();
   renderMarkers(filterData(offers));
@@ -121,7 +120,7 @@ const setDefaultState = () => {
   map.closePopup();
   mapFilters.reset();
   markerGroup.clearLayers();
-  renderMarkers(offers.slice(0, MAX_OFFERS)); // почему выдает 11, а не 10?
+  renderMarkers(offers.slice(0, MAX_OFFERS));
 };
 
 map.on('load', () => {
