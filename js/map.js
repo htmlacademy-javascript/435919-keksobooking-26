@@ -1,7 +1,8 @@
 import { makeRequest } from './api.js';
-import { toggleInteractive, setDisabledState } from './formadj.js';
+import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
 import { renderCard } from './data-generation.js';
 import { filterData } from './filter.js';
+import { debounce } from './util.js';
 
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
@@ -15,14 +16,6 @@ const MAX_OFFERS = 10;
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 const ALERT_SHOW_TIME = 500;
-
-const debounce = (callback, timeoutDelay) => {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-};
 
 let offers = [];
 
@@ -62,6 +55,7 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
+
 const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (offer) => {
@@ -75,25 +69,23 @@ const createMarker = (offer) => {
       keepInView: true,
     },
   );
-
   marker.addTo(markerGroup).bindPopup(renderCard(offer));
 };
+
 
 const renderMarkers = (data) => {
   data.forEach(createMarker);
 };
-
 
 const onMapFiltersChange = debounce(() => {
   markerGroup.clearLayers();
   renderMarkers(filterData(offers));
 }, ALERT_SHOW_TIME);
 
-
 const onSuccess = (data) => {
   offers = data.slice();
-
   renderMarkers(offers.slice(0, MAX_OFFERS));
+  toggleMapFilters();
   mapFilters.addEventListener('change', onMapFiltersChange);
 };
 
@@ -120,11 +112,13 @@ const setDefaultState = () => {
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
   map.closePopup();
   mapFilters.reset();
+  markerGroup.clearLayers();
+  renderMarkers(offers.slice(0, MAX_OFFERS));
 };
 
 map.on('load', () => {
   setDisabledState();
-  toggleInteractive();
+  toggleAdForm();
   makeRequest(onSuccess, onError, 'GET');
 }).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
