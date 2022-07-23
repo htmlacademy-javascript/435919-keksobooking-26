@@ -12,19 +12,12 @@ headerPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    file.on('load', () => {
-      previewHeaderPhoto.src = URL.createObjectURL(file);
-    });
+    previewHeaderPhoto.src = URL.createObjectURL(file);
   }
 });
 
 const livingPhoto = document.querySelector('.ad-form__upload input[type=file]');
 const previewLivingPhotoForm = document.querySelector('.ad-form__photo');
-const previewLivingPhoto = document.createElement('img');
-previewLivingPhoto.width = '70';
-previewLivingPhoto.height = '70';
-previewLivingPhotoForm.appendChild(previewLivingPhoto);
-
 
 livingPhoto.addEventListener('change', () => {
   const file = livingPhoto.files[0];
@@ -33,15 +26,17 @@ livingPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    file.on('load', () => {
-      previewLivingPhoto.src = URL.createObjectURL(file);
-
-    });
+    const previewLivingPhoto = document.createElement('img');
+    previewLivingPhoto.width = '70';
+    previewLivingPhoto.height = '70';
+    previewLivingPhotoForm.appendChild(previewLivingPhoto);
+    previewLivingPhoto.src = URL.createObjectURL(file);
   }
 });
 
 const photoRemove = () =>{
   previewHeaderPhoto.src = previewDefault;
+  previewLivingPhotoForm.innerHTML = '';
 };
 
 export {photoRemove};
