@@ -1,7 +1,8 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
+const adFormHeader =  document.querySelector('.ad-form-header');
 const headerPhoto = document.querySelector('.ad-form__field [type=file]');
-const previewHeaderPhoto = document.querySelector('.ad-form-header__preview__img');
+const previewHeaderPhoto = adFormHeader.querySelector('img');
 const previewDefault = previewHeaderPhoto.src;
 
 headerPhoto.addEventListener('change', () => {
@@ -11,7 +12,9 @@ headerPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    file.on('load', previewHeaderPhoto.src = URL.createObjectURL(file));
+    file.on('load', () => {
+      previewHeaderPhoto.src = URL.createObjectURL(file);
+    });
   }
 });
 
@@ -20,7 +23,6 @@ const previewLivingPhotoForm = document.querySelector('.ad-form__photo');
 const previewLivingPhoto = document.createElement('img');
 previewLivingPhoto.width = '70';
 previewLivingPhoto.height = '70';
-//previewLivingPhoto.style.padding = '12px 12px';
 previewLivingPhotoForm.appendChild(previewLivingPhoto);
 
 
@@ -31,13 +33,15 @@ livingPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    file.on('load', previewLivingPhoto.src = URL.createObjectURL(file));
+    file.on('load', () => {
+      previewLivingPhoto.src = URL.createObjectURL(file);
+
+    });
   }
 });
 
 const photoRemove = () =>{
   previewHeaderPhoto.src = previewDefault;
-  previewLivingPhoto.src = '';
 };
 
 export {photoRemove};
