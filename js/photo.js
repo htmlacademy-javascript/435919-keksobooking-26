@@ -18,11 +18,7 @@ headerPhoto.addEventListener('change', () => {
 const livingPhoto = document.querySelector('.ad-form__upload input[type=file]');
 const previewLivingPhotoForm = document.querySelector('.ad-form__photo');
 const previewLivingPhoto = document.createElement('img');
-previewLivingPhoto.width = '70';
-previewLivingPhoto.height = '70';
-previewLivingPhoto.style.padding = '12px 12px';
 previewLivingPhotoForm.appendChild(previewLivingPhoto);
-previewLivingPhoto.src = '';
 
 
 livingPhoto.addEventListener('change', () => {
@@ -33,12 +29,15 @@ livingPhoto.addEventListener('change', () => {
 
   if (matches) {
     file.on('load',previewLivingPhoto.src = URL.createObjectURL(file));
+    previewLivingPhoto.width = '70';
+    previewLivingPhoto.height = '70';
+    previewLivingPhoto.style.padding = '12px 12px';
   }
 });
 
 const photoRemove = () =>{
   previewHeaderPhoto.src = previewMuffin;
-  previewLivingPhoto.src.innerHTML = '';
+  previewLivingPhoto.src = previewMuffin;
 };
 
 export {photoRemove};

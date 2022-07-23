@@ -1,8 +1,9 @@
-import { setDisabledState, toggleInteractive } from './formadj.js';
+import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
 import './form.js';
 import './map.js';
 import './photo.js';
 
 setDisabledState();
-toggleInteractive();
+toggleAdForm();
+toggleMapFilters();
 

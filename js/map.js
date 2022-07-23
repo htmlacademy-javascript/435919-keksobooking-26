@@ -1,5 +1,5 @@
 import { makeRequest } from './api.js';
-import { toggleInteractive, setDisabledState } from './formadj.js';
+import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
 import { renderCard } from './data-generation.js';
 import { filterData } from './filter.js';
 import {debounce} from './util.js';
@@ -84,7 +84,7 @@ const onMapFiltersChange = debounce(() => {
 const onSuccess = (data) => {
   offers = data.slice();
   renderMarkers(offers.slice(0, MAX_OFFERS));
-
+  toggleMapFilters();
   mapFilters.addEventListener('change', onMapFiltersChange);
 };
 
@@ -117,7 +117,7 @@ const setDefaultState = () => {
 
 map.on('load', () => {
   setDisabledState();
-  toggleInteractive();
+  toggleAdForm();
   makeRequest(onSuccess, onError, 'GET');
 }).setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 
