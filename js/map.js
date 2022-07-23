@@ -2,7 +2,7 @@ import { makeRequest } from './api.js';
 import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
 import { renderCard } from './data-generation.js';
 import { filterData } from './filter.js';
-import {debounce} from './util.js';
+import { debounce } from './util.js';
 
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
