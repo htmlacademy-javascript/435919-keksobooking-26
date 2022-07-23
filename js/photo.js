@@ -1,7 +1,7 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const headerPhoto = document.querySelector('.ad-form__field [type=file]');
-c previewheaderPhoto = document.querySelector('.ad-form-header__preview__img');
+const previewHeaderPhoto = document.querySelector('.ad-form-header__preview__img');
 
 headerPhoto.addEventListener('change', () => {
   const file = headerPhoto.files[0];
@@ -10,7 +10,7 @@ headerPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    previewheaderPhoto.src = URL.createObjectURL(file);
+    previewHeaderPhoto.src = URL.createObjectURL(file);
   }
 });
 
@@ -35,7 +35,7 @@ livingPhoto.addEventListener('change', () => {
 });
 
 const photoRemove = () =>{
-  previewheaderPhoto.src.remove();
-  previewLivingPhoto.src.remove();
+  previewLivingPhoto.remove();
 };
- export {photoRemove};
+
+export {photoRemove};
