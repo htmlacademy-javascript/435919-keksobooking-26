@@ -1,4 +1,5 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const previewMuffin  = 'img/muffin-grey.svg';
 
 const headerPhoto = document.querySelector('.ad-form__field [type=file]');
 const previewHeaderPhoto = document.querySelector('.ad-form-header__preview__img');
@@ -10,7 +11,7 @@ headerPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    previewHeaderPhoto.src = URL.createObjectURL(file);
+    file.on('load', previewHeaderPhoto.src = URL.createObjectURL(file));
   }
 });
 
@@ -19,8 +20,9 @@ const previewLivingPhotoForm = document.querySelector('.ad-form__photo');
 const previewLivingPhoto = document.createElement('img');
 previewLivingPhoto.width = '70';
 previewLivingPhoto.height = '70';
-
+previewLivingPhoto.style.padding = '12px 12px';
 previewLivingPhotoForm.appendChild(previewLivingPhoto);
+previewLivingPhoto.src = '';
 
 
 livingPhoto.addEventListener('change', () => {
@@ -30,13 +32,13 @@ livingPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
-    previewLivingPhoto.src = URL.createObjectURL(file);
+    file.on('load',previewLivingPhoto.src = URL.createObjectURL(file));
   }
 });
 
 const photoRemove = () =>{
-  previewHeaderPhoto.src = 'img/muffin-grey.svg';
-  previewLivingPhoto.src =
+  previewHeaderPhoto.src = previewMuffin;
+  previewLivingPhoto.src.innerHTML = '';
 };
 
 export {photoRemove};
