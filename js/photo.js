@@ -1,7 +1,7 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const headerPhoto = document.querySelector('.ad-form__field [type=file]');
-const previewheaderPhoto = document.querySelector('.ad-form-header__preview__img');
+c previewheaderPhoto = document.querySelector('.ad-form-header__preview__img');
 
 headerPhoto.addEventListener('change', () => {
   const file = headerPhoto.files[0];
@@ -33,3 +33,9 @@ livingPhoto.addEventListener('change', () => {
     previewLivingPhoto.src = URL.createObjectURL(file);
   }
 });
+
+const photoRemove = () =>{
+  previewheaderPhoto.src.remove();
+  previewLivingPhoto.src.remove();
+};
+ export {photoRemove};

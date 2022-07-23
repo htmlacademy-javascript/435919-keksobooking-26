@@ -2,6 +2,7 @@ import { makeRequest } from './api.js';
 import { toggleInteractive, setDisabledState } from './formadj.js';
 import { renderCard } from './data-generation.js';
 import { filterData } from './filter.js';
+import { photoRemove } from './photo.js';
 
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
@@ -121,6 +122,7 @@ const setDefaultState = () => {
   mapFilters.reset();
   markerGroup.clearLayers();
   renderMarkers(offers.slice(0, MAX_OFFERS));
+  photoRemove();
 };
 
 map.on('load', () => {
