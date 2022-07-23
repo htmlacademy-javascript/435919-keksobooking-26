@@ -72,6 +72,7 @@ const createMarker = (offer) => {
   marker.addTo(markerGroup).bindPopup(renderCard(offer));
 };
 
+
 const renderMarkers = (data) => {
   data.forEach(createMarker);
 };
@@ -80,7 +81,6 @@ const onMapFiltersChange = debounce(() => {
   markerGroup.clearLayers();
   renderMarkers(filterData(offers));
 }, ALERT_SHOW_TIME);
-
 
 const onSuccess = (data) => {
   offers = data.slice();
