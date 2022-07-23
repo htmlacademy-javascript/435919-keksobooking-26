@@ -35,7 +35,8 @@ livingPhoto.addEventListener('change', () => {
 });
 
 const photoRemove = () =>{
-  previewLivingPhoto.remove();
+  previewHeaderPhoto.src = 'img/muffin-grey.svg';
+  previewLivingPhoto.src =
 };
 
 export {photoRemove};
