@@ -53,3 +53,4 @@ const filterData = (data) => {
 };
 
 export { filterData };
+export { MAX_OFFERS };
