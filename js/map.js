@@ -3,19 +3,21 @@ import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
 import { renderCard } from './data-generation.js';
 import { filterData } from './filter.js';
 import { debounce } from './util.js';
-
-const adForm = document.querySelector('.ad-form');
-const addressField = adForm.querySelector('#address');
-const mapFilters = document.querySelector('.map__filters');
+import { MAX_OFFERS } from './filter.js';
 
 const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
 };
-const MAX_OFFERS = 10;
+
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 const ALERT_SHOW_TIME = 500;
+
+
+const adForm = document.querySelector('.ad-form');
+const addressField = adForm.querySelector('#address');
+const mapFilters = document.querySelector('.map__filters');
 
 let offers = [];
 
@@ -54,7 +56,6 @@ const icon = L.icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
 
 const markerGroup = L.layerGroup().addTo(map);
 

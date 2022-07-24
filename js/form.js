@@ -1,6 +1,6 @@
 import { setDefaultState } from './map.js';
 import { makeRequest } from './api.js';
-import {photoRemove} from './photo.js';
+import { photoRemove } from './photo.js';
 
 const PRICE_MAX = 100000;
 
@@ -43,7 +43,6 @@ const getErrorTextPrice = () => parseInt(price.value, 10) < TYPE_OF_HOUSE[type.v
 pristine.addValidator(title, validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(price, validatePrice, getErrorTextPrice);
 
-// настройки слайдера
 noUiSlider.create(sliderElement, {
   range: {
     min: 1000,
@@ -62,7 +61,6 @@ noUiSlider.create(sliderElement, {
   },
 });
 
-// при изменении типа жилья меняется плейсхолдер цены
 const onTypeOfHouseChangePlaceHolder = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
@@ -70,8 +68,6 @@ const onTypeOfHouseChangePlaceHolder = () => {
 };
 
 type.addEventListener('change', onTypeOfHouseChangePlaceHolder);
-
-// при изменении типа жилья меняются настройки слайдера
 
 const onTypeOfHouseChangeSlider = () => {
   sliderElement.noUiSlider.updateOptions({
@@ -87,17 +83,14 @@ const onTypeOfHouseChangeSlider = () => {
 
 type.addEventListener('change', onTypeOfHouseChangeSlider);
 
-// меняю слайдер - меняется значение цены
 sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
 });
 
-// меняю значение цены - меняется слайдер, нужно ли менять событие?
 price.addEventListener('change', (evt) => {
   sliderElement.noUiSlider.set(evt.target.value);
 });
 
-// количество комнат и количество мест
 const NumberOfGuests = {
   1: ['1'],
   2: ['1', '2'],
@@ -109,10 +102,6 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    /*Цель найти  и деактивировать ненужные опции количеств комнат.
-    В объекте, в котором соотносятся количество гостей и комнат, по ключу, который равен количеству гостей, проходимся по массивам,
-    которые состоят из опций количества комнат.
-    В массивах, в которых мы не находим элемент со значением введенного количества гостей, мы возвращаем -1*/
     const isDisabled = (NumberOfGuests[roomValue].indexOf(guest.value) === -1);
     guest.selected = NumberOfGuests[roomValue][0] === guest.value;
     guest.disabled = isDisabled;
@@ -133,20 +122,19 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-//появление cообщения об успехе, закрытие сообщения
 const onSuccess = () => {
-  const successTemlate = document.querySelector('#success').content.querySelector('.success');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
-  const successElement = successTemlate.cloneNode(true); // клонируем этот элемент
+  const successTemlate = document.querySelector('#success').content.querySelector('.success');
+  const successElement = successTemlate.cloneNode(true);
   document.body.append(successElement);
   adForm.reset();
   setDefaultState();
   sliderElement.noUiSlider.reset();
 
-  successElement.addEventListener('click', () => { // удаляем сообщение по клику на сообщение
+  successElement.addEventListener('click', () => {
     successElement.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {// удаляем сообщение по Esc
+  document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       successElement.remove();
 
@@ -154,25 +142,24 @@ const onSuccess = () => {
   });
 };
 
-const errorTemlate = document.querySelector('#error').content.querySelector('.error');// Находим фрагмент с содержимым темплейта и в нем находим нужный элемент
-const errorElement = errorTemlate.cloneNode(true); // клонируем этот элемент
+const errorTemlate = document.querySelector('#error').content.querySelector('.error');
+const errorElement = errorTemlate.cloneNode(true);
 const errorButton = document.querySelector('.error__button');
 
-// cообщение об ошибке
 const onError = () => {
   document.body.append(errorElement);
 
-  document.addEventListener('click', () => { // удаляем по клику на произвольную область экрана
+  document.addEventListener('click', () => {
     errorElement.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {// удаляем cообщение по Esc
+  document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       errorElement.remove();
     }
   });
 
-  errorButton.addEventListener('click', () => { // удаляем сообщение по клику
+  errorButton.addEventListener('click', () => {
     errorElement.remove();
   });
 };
