@@ -1,6 +1,7 @@
 import { setDefaultState } from './map.js';
 import { makeRequest } from './api.js';
 import { removePhoto } from './photo.js';
+import { isEscapeKey } from './util.js';
 
 const PRICE_MAX = 100000;
 
@@ -61,15 +62,14 @@ noUiSlider.create(sliderElement, {
   },
 });
 
-const onTypeOfHouseChangePlaceHolder = () => {
+
+const changePlaceHolder = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
-type.addEventListener('change', onTypeOfHouseChangePlaceHolder);
-
-const onTypeOfHouseChangeSlider = () => {
+const changeSlider = () => {
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: TYPE_OF_HOUSE[type.value],
@@ -81,7 +81,12 @@ const onTypeOfHouseChangeSlider = () => {
   });
 };
 
-type.addEventListener('change', onTypeOfHouseChangeSlider);
+const onTypeOfHouseChange = () => {
+  changeSlider();
+  changePlaceHolder();
+};
+
+type.addEventListener('change', onTypeOfHouseChange);
 
 sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
@@ -122,46 +127,42 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
-const onSuccess = () => {
-  const successTemlate = document.querySelector('#success').content.querySelector('.success');
-  const successElement = successTemlate.cloneNode(true);
-  document.body.append(successElement);
-  adForm.reset();
-  setDefaultState();
-  sliderElement.noUiSlider.reset();
 
-  successElement.addEventListener('click', () => {
-    successElement.remove();
-  });
+const successTemlate = document.querySelector('#success').content.querySelector('.success');
+const successElement = successTemlate.cloneNode(true);
 
+const onSuccessMessageClose = () => {
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+    successElement.remove();
+    if (isEscapeKey(evt)) {
       successElement.remove();
-
     }
   });
 };
 
+const onSuccess = () => {
+  document.body.append(successElement);
+  adForm.reset();
+  setDefaultState();
+  sliderElement.noUiSlider.reset();
+  successElement.addEventListener('click', onSuccessMessageClose);
+};
+
 const errorTemlate = document.querySelector('#error').content.querySelector('.error');
 const errorElement = errorTemlate.cloneNode(true);
-const errorButton = document.querySelector('.error__button');
 
-const onError = () => {
-  document.body.append(errorElement);
-
-  document.addEventListener('click', () => {
-    errorElement.remove();
-  });
-
+const onErrorMessageClose = () => {
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+    errorElement.remove();
+    if (isEscapeKey(evt)) {
       errorElement.remove();
     }
   });
+};
 
-  errorButton.addEventListener('click', () => {
-    errorElement.remove();
-  });
+const onError = () => {
+  document.body.append(errorElement);
+  document.addEventListener('click', onErrorMessageClose);
 };
 
 resetButton.addEventListener('click', () => {
@@ -178,4 +179,3 @@ adForm.addEventListener('submit', (evt) => {
     makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
   }
 });
-
