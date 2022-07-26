@@ -1,4 +1,4 @@
-const types = {
+const TYPES = {
   flat: {
     ru: 'Квартира'
   },
@@ -64,7 +64,7 @@ const renderCard = (data) => {
 
   const offerType = offerElement.querySelector('.popup__type');
   if (data.offer.type) {
-    offerType.textContent = types[data.offer.type].ru;
+    offerType.textContent = TYPES[data.offer.type].ru;
   } else {
     offerType.remove();
   }

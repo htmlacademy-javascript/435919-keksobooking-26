@@ -1,6 +1,6 @@
 import { setDefaultState } from './map.js';
 import { makeRequest } from './api.js';
-import { photoRemove } from './photo.js';
+import { removePhoto } from './photo.js';
 
 const PRICE_MAX = 100000;
 
@@ -167,7 +167,7 @@ const onError = () => {
 resetButton.addEventListener('click', () => {
   setDefaultState();
   sliderElement.noUiSlider.reset();
-  photoRemove();
+  removePhoto();
 });
 
 
