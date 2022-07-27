@@ -131,13 +131,11 @@ formTime.addEventListener('change', (evt) => {
 const successTemlate = document.querySelector('#success').content.querySelector('.success');
 const successElement = successTemlate.cloneNode(true);
 
-const onSuccessMessageClose = () => {
-  document.addEventListener('keydown', (evt) => {
+const onSuccessEscKeydown = (evt) => {
+  if (isEscapeKey(evt)){
     successElement.remove();
-    if (isEscapeKey(evt)) {
-      successElement.remove();
-    }
-  });
+    document.removeEventListener('keydown', onSuccessEscKeydown);
+  }
 };
 
 const onSuccess = () => {
@@ -145,25 +143,39 @@ const onSuccess = () => {
   adForm.reset();
   setDefaultState();
   sliderElement.noUiSlider.reset();
-  successElement.addEventListener('click', onSuccessMessageClose);
+
+  successElement.addEventListener('click', () => {
+    successElement.remove();
+  });
+
+  document.addEventListener('keydown', onSuccessEscKeydown);
 };
 
 const errorTemlate = document.querySelector('#error').content.querySelector('.error');
 const errorElement = errorTemlate.cloneNode(true);
+const errorButton = document.querySelector('.error__button');
 
-const onErrorMessageClose = () => {
-  document.addEventListener('keydown', (evt) => {
+const onErrorEscKeydown = (evt) => {
+  if (isEscapeKey(evt)){
     errorElement.remove();
-    if (isEscapeKey(evt)) {
-      errorElement.remove();
-    }
-  });
+    document.removeEventListener('keydown', onErrorEscKeydown);}
 };
+
 
 const onError = () => {
   document.body.append(errorElement);
-  document.addEventListener('click', onErrorMessageClose);
+
+  document.addEventListener('click', () => {
+    errorElement.remove();
+  });
+
+  document.addEventListener('keydown', onErrorEscKeydown);
+
+  errorButton.addEventListener('click', () => {
+    errorElement.remove();
+  });
 };
+
 
 resetButton.addEventListener('click', () => {
   setDefaultState();
