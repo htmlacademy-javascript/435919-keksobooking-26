@@ -1,6 +1,7 @@
 import { setDefaultState } from './map.js';
 import { makeRequest } from './api.js';
-import { photoRemove } from './photo.js';
+import { removePhoto } from './photo.js';
+import { isEscapeKey } from './util.js';
 
 const PRICE_MAX = 100000;
 
@@ -61,15 +62,13 @@ noUiSlider.create(sliderElement, {
   },
 });
 
-const onTypeOfHouseChangePlaceHolder = () => {
+const changePlaceHolder = () => {
   const minPrice = TYPE_OF_HOUSE[type.value];
   price.placeholder = minPrice;
   price.min = minPrice;
 };
 
-type.addEventListener('change', onTypeOfHouseChangePlaceHolder);
-
-const onTypeOfHouseChangeSlider = () => {
+const changeSlider = () => {
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: TYPE_OF_HOUSE[type.value],
@@ -81,7 +80,12 @@ const onTypeOfHouseChangeSlider = () => {
   });
 };
 
-type.addEventListener('change', onTypeOfHouseChangeSlider);
+const onTypeOfHouseChange = () => {
+  changeSlider();
+  changePlaceHolder();
+};
+
+type.addEventListener('change', onTypeOfHouseChange);
 
 sliderElement.noUiSlider.on('update', () => {
   price.value = sliderElement.noUiSlider.get();
@@ -122,9 +126,17 @@ formTime.addEventListener('change', (evt) => {
   timeOut.value = evt.target.value;
 });
 
+const successTemlate = document.querySelector('#success').content.querySelector('.success');
+const successElement = successTemlate.cloneNode(true);
+
+const onSuccessEscKeydown = (evt) => {
+  if (isEscapeKey(evt)){
+    successElement.remove();
+    document.removeEventListener('keydown', onSuccessEscKeydown);
+  }
+};
+
 const onSuccess = () => {
-  const successTemlate = document.querySelector('#success').content.querySelector('.success');
-  const successElement = successTemlate.cloneNode(true);
   document.body.append(successElement);
   adForm.reset();
   setDefaultState();
@@ -134,17 +146,18 @@ const onSuccess = () => {
     successElement.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      successElement.remove();
-
-    }
-  });
+  document.addEventListener('keydown', onSuccessEscKeydown);
 };
 
 const errorTemlate = document.querySelector('#error').content.querySelector('.error');
 const errorElement = errorTemlate.cloneNode(true);
 const errorButton = document.querySelector('.error__button');
+
+const onErrorEscKeydown = (evt) => {
+  if (isEscapeKey(evt)){
+    errorElement.remove();
+    document.removeEventListener('keydown', onErrorEscKeydown);}
+};
 
 const onError = () => {
   document.body.append(errorElement);
@@ -153,11 +166,7 @@ const onError = () => {
     errorElement.remove();
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      errorElement.remove();
-    }
-  });
+  document.addEventListener('keydown', onErrorEscKeydown);
 
   errorButton.addEventListener('click', () => {
     errorElement.remove();
@@ -167,9 +176,8 @@ const onError = () => {
 resetButton.addEventListener('click', () => {
   setDefaultState();
   sliderElement.noUiSlider.reset();
-  photoRemove();
+  removePhoto();
 });
-
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -178,4 +186,3 @@ adForm.addEventListener('submit', (evt) => {
     makeRequest(onSuccess, onError, 'POST', new FormData(adForm));
   }
 });
-

@@ -34,9 +34,9 @@ livingPhoto.addEventListener('change', () => {
   }
 });
 
-const photoRemove = () =>{
+const removePhoto = () =>{
   previewHeaderPhoto.src = previewDefault;
   previewLivingPhotoForm.innerHTML = '';
 };
 
-export {photoRemove};
+export {removePhoto};

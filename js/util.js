@@ -6,4 +6,7 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 export {debounce};
+export {isEscapeKey};

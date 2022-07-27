@@ -1,6 +1,6 @@
 import { makeRequest } from './api.js';
-import { setDisabledState, toggleAdForm, toggleMapFilters } from './formadj.js';
-import { renderCard } from './data-generation.js';
+import { setDisabledState, toggleAdForm, toggleMapFilters } from './form-adj.js';
+import { renderCard } from './card.js';
 import { filterData } from './filter.js';
 import { debounce } from './util.js';
 import { MAX_OFFERS } from './filter.js';
@@ -13,7 +13,6 @@ const TOKIO_COORDINATES = {
 const ZOOM_LEVEL = 10;
 const FIXED_NUMBER = 5;
 const ALERT_SHOW_TIME = 500;
-
 
 const adForm = document.querySelector('.ad-form');
 const addressField = adForm.querySelector('#address');
@@ -29,7 +28,6 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }
 ).addTo(map);
-
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -72,7 +70,6 @@ const createMarker = (offer) => {
   );
   marker.addTo(markerGroup).bindPopup(renderCard(offer));
 };
-
 
 const renderMarkers = (data) => {
   data.forEach(createMarker);

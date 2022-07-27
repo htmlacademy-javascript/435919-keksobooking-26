@@ -1,4 +1,4 @@
-const types = {
+const TYPES = {
   flat: {
     ru: 'Квартира'
   },
@@ -15,7 +15,6 @@ const types = {
     ru: 'Отель'
   },
 };
-
 
 const renderFeatures = (container, features) => {
   const featuresList = container.querySelectorAll('.popup__feature');
@@ -42,7 +41,6 @@ const renderPhotos = (container, photos) => {
   }
 };
 
-
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const renderCard = (data) => {
@@ -64,7 +62,7 @@ const renderCard = (data) => {
 
   const offerType = offerElement.querySelector('.popup__type');
   if (data.offer.type) {
-    offerType.textContent = types[data.offer.type].ru;
+    offerType.textContent = TYPES[data.offer.type].ru;
   } else {
     offerType.remove();
   }

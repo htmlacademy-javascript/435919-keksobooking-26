@@ -16,7 +16,6 @@ const toggleMapFilters = () => {
   mapFilters.classList.toggle('map__filters--disabled');
 };
 
-
 export{setDisabledState};
 export{toggleAdForm};
 export{toggleMapFilters};

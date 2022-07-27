@@ -1,7 +1,7 @@
 const MAX_OFFERS = 10;
 const DEFAULT_VALUE = 'any';
 
-const priceMap = {
+const PRICE_MAP = {
   'low': {
     start: 0,
     end: 10000,
@@ -21,7 +21,7 @@ const filters = Array.from(document.querySelector('.map__filters').children);
 const filterRules = {
   'housing-type': (data, filter) => filter.value === data.offer.type,
 
-  'housing-price': (data, filter) => data.offer.price >= priceMap[filter.value].start && data.offer.price < priceMap[filter.value].end,
+  'housing-price': (data, filter) => data.offer.price >= PRICE_MAP[filter.value].start && data.offer.price < PRICE_MAP[filter.value].end,
 
   'housing-rooms': (data, filter) => filter.value === data.offer.rooms.toString(),
 
